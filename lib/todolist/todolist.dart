@@ -12,7 +12,7 @@ class _TodoListState extends State<TodoList> {
   final todos = <Todo>[
     Todo(text: 'Przykładowy todos'),
     Todo(text: 'Inny przykład'),
-    Todo(text: 'To już zrobione'),
+    Todo(text: 'To już zrobione', done: true),
   ];
 
   @override
