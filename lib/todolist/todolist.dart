@@ -26,17 +26,25 @@ class _TodoListState extends State<TodoList> {
             key: Key(todo.id),
             direction: DismissDirection.startToEnd,
             background: Container(
-              color: Colors.red,
-              child: ListTile(
-                leading: Icon(Icons.delete_outline),
-              )
-            ),
+                color: Colors.red,
+                child: ListTile(
+                  leading: Icon(Icons.delete_outline),
+                )),
             onDismissed: (direction) {
               setState(() {
                 todos.removeAt(index);
               });
-              Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text('Usunięto tudus: ${todo.text}')));
+              Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Usunięto tudus: ${todo.text}'),
+                    action: SnackBarAction(
+                      label: 'Cofnij',
+                      onPressed: () {
+                        setState(() {
+                          todos.insert(index, todo);
+                        });
+                      },
+                    ),
+                  ));
             },
             child: TodoElement(todo: todo),
           );
