@@ -30,10 +30,19 @@ class _TodoListState extends State<TodoList> {
         child: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () async {
-            var result = await showDialog(context: context, builder: (context) {
-              return NewTodo();
-            });
-            print(result);
+            var result = await showDialog(
+                context: context,
+                builder: (context) {
+                  return NewTodo();
+                });
+            if (result != null) {
+              setState(() {
+                todos.add(result);
+              });
+              Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Dodano nowy tudus: ${result.text}'),
+                  ));
+            }
           },
         ),
       ),

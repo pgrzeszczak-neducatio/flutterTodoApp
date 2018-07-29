@@ -7,15 +7,43 @@ class NewTodo extends StatefulWidget {
 }
 
 class _NewTodoState extends State<StatefulWidget> {
-  final newTodo = Todo();
+  final _newTodo = Todo(done: false);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Dialog(
       child: Container(
         padding: const EdgeInsets.all(32.0),
-        child: Text('IT WORKS'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              decoration: InputDecoration(hintText: 'Please enter a search term'),
+              onChanged: (value) {
+                _newTodo.text = value;
+              },
+              onSubmitted: (value) => Navigator.pop(context, _newTodo),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  RaisedButton(
+                    child: Text('Anuluj'),
+                    color: Theme.of(context).accentColor,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  RaisedButton(
+                    child: Text('OK'),
+                    color: Theme.of(context).primaryColor,
+                    onPressed: () => Navigator.pop(context, _newTodo),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
