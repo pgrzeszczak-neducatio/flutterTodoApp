@@ -19,10 +19,27 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return Stack(alignment: const Alignment(1.0, 1.0), children: [
       ListView.builder(
-        padding: const EdgeInsets.all(16.0),
         itemCount: todos.length,
         itemBuilder: (context, index) {
-          return new TodoElement(todo: todos[index]);
+          final todo = todos[index];
+          return Dismissible(
+            key: Key(todo.id),
+            direction: DismissDirection.startToEnd,
+            background: Container(
+              color: Colors.red,
+              child: ListTile(
+                leading: Icon(Icons.delete_outline),
+              )
+            ),
+            onDismissed: (direction) {
+              setState(() {
+                todos.removeAt(index);
+              });
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('Usunięto tudus: ${todo.text}')));
+            },
+            child: TodoElement(todo: todo),
+          );
         },
       ),
       Container(
@@ -39,9 +56,8 @@ class _TodoListState extends State<TodoList> {
               setState(() {
                 todos.add(result);
               });
-              Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Dodano nowy tudus: ${result.text}'),
-                  ));
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('Dodano nowy tudus: ${result.text}')));
             }
           },
         ),

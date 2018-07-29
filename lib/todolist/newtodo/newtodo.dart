@@ -18,6 +18,7 @@ class _NewTodoState extends State<StatefulWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              autofocus: true,
               decoration: InputDecoration(hintText: 'Please enter a search term'),
               onChanged: (value) {
                 _newTodo.text = value;
