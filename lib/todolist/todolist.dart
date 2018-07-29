@@ -9,9 +9,9 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   final todos = <Todo>[
-    Todo('Przykładowy todos'),
-    Todo('Inny przykład'),
-    Todo('To już zrobione'),
+    Todo(text: 'Przykładowy todos'),
+    Todo(text: 'Inny przykład'),
+    Todo(text: 'To już zrobione'),
   ];
 
   @override
@@ -20,23 +20,8 @@ class _TodoListState extends State<TodoList> {
       padding: const EdgeInsets.all(16.0),
       itemCount: todos.length,
       itemBuilder: (context, index) {
-        return new TodoElement(todos[index]);
+        return new TodoElement(todo: todos[index]);
       },
     );
   }
-
-//  <Widget>[
-//  ListTile(
-//  leading: Icon(Icons.map),
-//  title: Text('Map'),
-//  ),
-//  ListTile(
-//  leading: Icon(Icons.photo_album),
-//  title: Text('Album'),
-//  ),
-//  ListTile(
-//  leading: Icon(Icons.phone),
-//  title: Text('Phone'),
-//  ),
-//  ],
 }
