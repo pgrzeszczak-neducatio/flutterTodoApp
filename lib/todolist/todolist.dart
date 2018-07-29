@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../model/todo.dart';
 import 'todo/todoelement.dart';
+import 'newtodo/newtodo.dart';
 
 class TodoList extends StatefulWidget {
   @override
@@ -16,12 +17,26 @@ class _TodoListState extends State<TodoList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: todos.length,
-      itemBuilder: (context, index) {
-        return new TodoElement(todo: todos[index]);
-      },
-    );
+    return Stack(alignment: const Alignment(1.0, 1.0), children: [
+      ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: todos.length,
+        itemBuilder: (context, index) {
+          return new TodoElement(todo: todos[index]);
+        },
+      ),
+      Container(
+        padding: const EdgeInsets.all(24.0),
+        child: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () async {
+            var result = await showDialog(context: context, builder: (context) {
+              return NewTodo();
+            });
+            print(result);
+          },
+        ),
+      ),
+    ]);
   }
 }
